@@ -3,6 +3,7 @@
   <header>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css"/>
   </header>
 <style>
   .searchBox {
@@ -18,12 +19,24 @@
     height:25px;
     background-size: cover;
   }
+  .btn-default {
+    background-color:black;
+    border-color:black;
+    color:white;
+    font-size: 1.4em;
+    margin-top: 10px;
+  }
 </style>
 <script>
 
 </script>
 <div class="searchBox">
   <h1>Search on Wikipedia</h1>
-  <input class="inputStyle" type="text">
+  <div>
+  <form action="">
+    <input class="inputStyle" type="text" placeholder="Search">
+    <button class="btn-default"type="sumbit">Submit</button>
+  </form>
+</div>
 </div>
 </html>
