@@ -31,13 +31,23 @@
   }
 </style>
 <script>
+$(function() {
+    // init plugin (with callback)
+    $('.clearable').clearSearch({ callback: function() { console.log("cleared"); } } );
+
+    // update value
+    $('.clearable').val('sample value').change();
+
+    // change width
+    $('.clearable').width('200px').change();
+});
 
 </script>
 <div class="searchBox">
   <h1>Search on Wikipedia</h1>
   <div>
     <form action="">
-      <input class="inputStyle" type="text" placeholder="Search">
+      <input class="inputStyle clearable" type="search" placeholder="Search">
       <button class="btn-default"type="sumbit">Search</button>
     </form>
   </div>
