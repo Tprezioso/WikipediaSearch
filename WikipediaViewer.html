@@ -41,7 +41,24 @@ $(function() {
     $('.clearable').width('200px').change();
 });
 
+function queryWiki() {
+  $(function () {
+    $.ajax({
+      type: 'GET',
+      url: 'http://en.wikipedia.org/w/api.php?action=opensearch&search=bee&limit=10&format=json',
+      dataType:"json",
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'text/plain'
+    },
+      success: function(data) {
+        console.log(data);
+      }
+    });
+  });
+}
 </script>
+<body onload="queryWiki()">
 <div class="searchBox">
   <h1>Search on Wikipedia</h1>
   <div>
@@ -51,4 +68,5 @@ $(function() {
     </form>
   </div>
 </div>
+</body>
 </html>
