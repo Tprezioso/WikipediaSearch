@@ -1,5 +1,8 @@
 <!DOCTYPE html>
 <html>
+<head>
+  <meta charset="UTF-8">
+</head>
   <header>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
@@ -32,39 +35,60 @@
 </style>
 <script>
 //clear text Func
-$(function() {
-    // init plugin (with callback)
-    $('.clearable').clearSearch({ callback: function() { console.log("cleared"); } } );
-    // update value
-    $('.clearable').val('sample value').change();
-    // change width
-    $('.clearable').width('200px').change();
-});
+function load() {
 
-function queryWiki() {
-  $(function () {
-    $.ajax({
-      type: 'GET',
-      url: 'http://en.wikipedia.org/w/api.php?action=opensearch&search=bee&limit=10&format=json',
-      dataType:"json",
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'text/plain'
-    },
-      success: function(data) {
-        console.log(data);
-      }
-    });
-  });
 }
+$(document).ready(function(){
+        $('#btn').click(function() {
+            $.ajax({
+                url: 'http://en.wikipedia.org/w/api.php',
+                data: { action: 'query', list: 'search', srsearch: $("input[name=Wikipedia]").val(), format: 'json' },
+                dataType: 'jsonp',
+                success: processResult
+
+            });
+        });
+    });
+
+  function processResult(apiResult){
+     for (var i = 0; i < apiResult.query.search.length; i++){
+          $('#display-result').append('<p>'+apiResult.query.search[i].title+'</p>');
+          console.log(apiResult);
+     }
+  }
+// $(function() {
+//     // init plugin (with callback)
+//     $('.clearable').clearSearch({ callback: function() { console.log("cleared"); } } );
+//     // update value
+//     $('.clearable').val('sample value').change();
+//     // change width
+//     $('.clearable').width('200px').change();
+// });
+
+// function queryWiki() {
+//   $(function () {
+//     $.ajax({
+//       type: 'GET',
+//       url: 'http://en.wikipedia.org/w/api.php?action=opensearch&search=bee&limit=10&format=json',
+//       dataType:"json",
+//     //   headers: {
+//     //     'Accept': 'application/json',
+//     //     'Content-Type': 'text/plain'
+//     // },
+//       success: function(data) {
+//         console.log(data);
+//       }
+//     });
+//   });
+// }
 </script>
-<body onload="queryWiki()">
+<body onload="">
 <div class="searchBox">
   <h1>Search on Wikipedia</h1>
   <div>
     <form action="">
-      <input class="inputStyle clearable" type="search" placeholder="Search">
-      <button class="btn-default"type="sumbit">Search</button>
+      <input class="inputStyle clearable" type="search" placeholder="Search"/>
+      <button id="btn" class="btn-default"type="sumbit">Search</button>
     </form>
   </div>
 </div>
