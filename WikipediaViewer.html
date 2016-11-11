@@ -39,23 +39,24 @@ function load() {
 
 }
 $(document).ready(function(){
-        $('#btn').click(function() {
+//        $('#button').click(function() {
             $.ajax({
                 url: 'http://en.wikipedia.org/w/api.php',
                 data: { action: 'query', list: 'search', srsearch: $("input[name=Wikipedia]").val(), format: 'json' },
                 dataType: 'jsonp',
-                success: processResult
-
+                success: function(apiResult) {
+                    console.log(apiResult);
+                    //  for (var i = 0; i < apiResult.query.search.length; i++){
+                    //       $('#display-result').append('<p>'+apiResult.query.search[i].title+'</p>');
+                     //
+                    //  }
+                  }
             });
-        });
+  //      });
     });
 
-  function processResult(apiResult){
-     for (var i = 0; i < apiResult.query.search.length; i++){
-          $('#display-result').append('<p>'+apiResult.query.search[i].title+'</p>');
-          console.log(apiResult);
-     }
-  }
+
+
 // $(function() {
 //     // init plugin (with callback)
 //     $('.clearable').clearSearch({ callback: function() { console.log("cleared"); } } );
@@ -88,7 +89,7 @@ $(document).ready(function(){
   <div>
     <form action="">
       <input class="inputStyle clearable" type="search" placeholder="Search"/>
-      <button id="btn" class="btn-default"type="sumbit">Search</button>
+      <button id="button" class="btn-default"type="sumbit">Search</button>
     </form>
   </div>
 </div>
