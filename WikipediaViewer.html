@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">
 </head>
   <header>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -16,7 +15,6 @@ body {
   background-repeat: no-repeat;
   background-size:auto;
 }
-
 
 button {
   margin-left: 45%;
@@ -40,7 +38,6 @@ div,output{
 .btn-primary{
   font-size: 20px;
 }
-
 </style>
 <script>
 $(document).ready(function(){
@@ -71,25 +68,27 @@ $(document).ready(function(){
     error: function(errorMessage){
       alert("Error!");
     }
-  });
+    });
   });
     $('#searchTerm').keypress(function(e){
     if(e.which==13){
       $("#search").click();
     }
   });
-
 });
+
 window.smoothScroll = function(target) {
     var scrollContainer = target;
-    do { //find scroll container
+    do {
+      //find scroll container
         scrollContainer = scrollContainer.parentNode;
         if (!scrollContainer) return;
         scrollContainer.scrollTop += 1;
     } while (scrollContainer.scrollTop == 0);
 
     var targetY = 0;
-    do { //find the top of target relatively to the container
+    do {
+       //find the top of target relatively to the container
         if (target == scrollContainer) break;
         targetY += target.offsetTop;
     } while (target = target.offsetParent);
@@ -105,20 +104,17 @@ window.smoothScroll = function(target) {
 </script>
 <div class = "container">
   <div class="text-center">
-  <h1>Wikipedia Search</h1>
-  <a href ="https://en.wikipedia.org/wiki/Special:Random" target="blank">
-    <img src='https://lh5.ggpht.com/1Erjb8gyF0RCc9uhnlfUdbU603IgMm-G-Y3aJuFcfQpno0N4HQIVkTZERCTo65Iz2II=w300'height="200" width="200">
-  </a>
+    <h1>Wikipedia Search</h1>
+    <a href ="https://en.wikipedia.org/wiki/Special:Random" target="blank">
+      <img src='https://lh5.ggpht.com/1Erjb8gyF0RCc9uhnlfUdbU603IgMm-G-Y3aJuFcfQpno0N4HQIVkTZERCTo65Iz2II=w300'height="200" width="200">
+    </a>
     </div>
     <div class="input-append">
       <input class ="form-control" id="searchTerm">
       <button id="search" type="button" class="btn btn-primary" target="blank">Submit</button>
-</div>
-</div>
-  <div id="output" class="output" href="output">
-<!--   <ul id="output">
-
-  </ul> -->
     </div>
+  </div>
+  <div id="output" class="output" href="output">
+  </div>
 </div>
 </html>
