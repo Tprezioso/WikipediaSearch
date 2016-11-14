@@ -17,8 +17,13 @@ body {
   background-size:auto;
 }
 
+
 button {
-  margin: 1%;
+  margin-left: 45%;
+  margin-top: 1%;
+  font-size: 20px;
+  text-align: center;
+  padding-left: 1%;
 }
 
 a,p{
@@ -30,6 +35,10 @@ div,output{
   padding:10px;
   border-radius:10px;
   margin: 20px;
+}
+
+.btn-primary{
+  font-size: 20px;
 }
 
 </style>
@@ -55,9 +64,9 @@ $(document).ready(function(){
       $('#output').html('');
    for(var i= 0;i<data[1].length;i++){
       $('#output').prepend("<div><div class='btn-primary'><a href="+data[3][i]+"><h2>"+data[1][i] +"</h2><p>"+data[2][i]+"</p></a></div></div>");
-
    }
-    $('#searchTerm').val('');
+   smoothScroll(document.getElementById('output'));
+   $('#searchTerm').val('');
   },
     error: function(errorMessage){
       alert("Error!");
@@ -71,17 +80,42 @@ $(document).ready(function(){
   });
 
 });
+window.smoothScroll = function(target) {
+    var scrollContainer = target;
+    do { //find scroll container
+        scrollContainer = scrollContainer.parentNode;
+        if (!scrollContainer) return;
+        scrollContainer.scrollTop += 1;
+    } while (scrollContainer.scrollTop == 0);
+
+    var targetY = 0;
+    do { //find the top of target relatively to the container
+        if (target == scrollContainer) break;
+        targetY += target.offsetTop;
+    } while (target = target.offsetParent);
+
+    scroll = function(c, a, b, i) {
+        i++; if (i > 30) return;
+        c.scrollTop = a + (b - a) / 30 * i;
+        setTimeout(function(){ scroll(c, a, b, i); }, 20);
+    }
+    // start scrolling
+    scroll(scrollContainer, scrollContainer.scrollTop, targetY, 0);
+}
 </script>
 <div class = "container">
   <div class="text-center">
   <h1>Wikipedia Search</h1>
   <a href ="https://en.wikipedia.org/wiki/Special:Random" target="blank">
-    <img src='https://lh5.ggpht.com/1Erjb8gyF0RCc9uhnlfUdbU603IgMm-G-Y3aJuFcfQpno0N4HQIVkTZERCTo65Iz2II=w300'>
+    <img src='https://lh5.ggpht.com/1Erjb8gyF0RCc9uhnlfUdbU603IgMm-G-Y3aJuFcfQpno0N4HQIVkTZERCTo65Iz2II=w300'height="200" width="200">
   </a>
     </div>
-  <input class ="form-control" id="searchTerm">
-  <button id="search" type="button" class="btn btn-primary">Submit</button>
-  <div id="output" class="output">
+    <div class="input-append">
+      <input class ="form-control" id="searchTerm">
+      <button id="search" type="button" class="btn btn-primary">Submit</button>
+</div>
+</div>
+  <div id="output" class="output" href="output">
 <!--   <ul id="output">
 
   </ul> -->
