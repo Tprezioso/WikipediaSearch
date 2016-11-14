@@ -7,87 +7,84 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <link href='https://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
   </header>
 <style>
-  .searchBox {
-    width:400px;
-    height:50px;
-    margin:0 auto;
-    text-align:center;
-    background-size: cover;
-  }
+body {
+  font-family:Lobster;
+  background-image:url('http://6088-presscdn-0-26.pagely.netdna-cdn.com/wp-content/uploads/2014/04/Wikipedia.jpg');
+  background-repeat: no-repeat;
+  background-size:auto;
+}
 
-  .inputStyle {
-    width:400px;
-    height:25px;
-    background-size: cover;
-    border-radius:10px;
-  }
+button {
+  margin: 1%;
+}
 
-  .btn-default {
-    background-color:white;
-    border-color:white;
-    color:black;
-    font-size: 1.4em;
-    margin-top: 10px;
-    border-radius:10px;
-  }
+a,p{
+  font-size:20px;
+  color:white;
+  outline:none;
+}
+div,output{
+  padding:10px;
+  border-radius:10px;
+  margin: 20px;
+}
+
 </style>
 <script>
-function load() {
-
-}
 $(document).ready(function(){
-//        $('#button').click(function() {
-            $.ajax({
-                url: 'http://en.wikipedia.org/w/api.php',
-                data: { action: 'query', list: 'search', srsearch: $("input[name=Wikipedia]").val(), format: 'json' },
-                dataType: 'jsonp',
-                success: function(apiResult) {
-                    console.log(apiResult);
-                    //  for (var i = 0; i < apiResult.query.search.length; i++){
-                    //       $('#display-result').append('<p>'+apiResult.query.search[i].title+'</p>');
-                     //
-                    //  }
-                  }
-            });
-  //      });
-    });
-// $(function() {
-//     // init plugin (with callback)
-//     $('.clearable').clearSearch({ callback: function() { console.log("cleared"); } } );
-//     // update value
-//     $('.clearable').val('sample value').change();
-//     // change width
-//     $('.clearable').width('200px').change();
-// });
+  //when search is clikced run code
+  $('#search').click(function(){
+    //Gets search input
+    var searchTerm = $('#searchTerm').val();
+    //  API URL with search input
+    var url = "https://en.wikipedia.org/w/api.php?action=opensearch&search="+ searchTerm +"&format=json&callback=?";
 
-// function queryWiki() {
-//   $(function () {
-//     $.ajax({
-//       type: 'GET',
-//       url: 'http://en.wikipedia.org/w/api.php?action=opensearch&search=bee&limit=10&format=json',
-//       dataType:"json",
-//     //   headers: {
-//     //     'Accept': 'application/json',
-//     //     'Content-Type': 'text/plain'
-//     // },
-//       success: function(data) {
-//         console.log(data);
-//       }
-//     });
-//   });
-// }
+  $.ajax({
+    type:"GET",
+    url:url,
+    async:false,
+    dataType:"json",
+    success: function(data, textStatus, jqXHR){
+      console.log(data[1][0]);
+      console.log(data[2][0]);
+      console.log(data[3][0]);
+      // below line is used to clear out search so older searches arent on top of new ones
+      $('#output').html('');
+   for(var i= 0;i<data[1].length;i++){
+      $('#output').prepend("<div><div class='btn-primary'><a href="+data[3][i]+"><h2>"+data[1][i] +"</h2><p>"+data[2][i]+"</p></a></div></div>");
+
+   }
+    $('#searchTerm').val('');
+  },
+    error: function(errorMessage){
+      alert("Error!");
+    }
+  });
+  });
+    $('#searchTerm').keypress(function(e){
+    if(e.which==13){
+      $("#search").click();
+    }
+  });
+
+});
 </script>
-<body onload="">
-<div class="searchBox">
-  <h1>Search on Wikipedia</h1>
-  <div>
-    <form action="">
-      <input class="inputStyle clearable" type="search" placeholder="Search"/>
-      <button id="button" class="btn-default"type="sumbit">Search</button>
-    </form>
-  </div>
+<div class = "container">
+  <div class="text-center">
+  <h1>Wikipedia Search</h1>
+  <a href ="https://en.wikipedia.org/wiki/Special:Random" target="blank">
+    <img src='https://lh5.ggpht.com/1Erjb8gyF0RCc9uhnlfUdbU603IgMm-G-Y3aJuFcfQpno0N4HQIVkTZERCTo65Iz2II=w300'>
+  </a>
+    </div>
+  <input class ="form-control" id="searchTerm">
+  <button id="search" type="button" class="btn btn-primary">Submit</button>
+  <div id="output" class="output">
+<!--   <ul id="output">
+
+  </ul> -->
+    </div>
 </div>
-</body>
 </html>
