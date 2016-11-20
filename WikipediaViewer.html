@@ -47,16 +47,12 @@ $(document).ready(function(){
     var searchTerm = $('#searchTerm').val();
     //  API URL with search input
     var url = "https://en.wikipedia.org/w/api.php?action=opensearch&search="+ searchTerm +"&format=json&callback=?";
-
   $.ajax({
     type:"GET",
     url:url,
     async:false,
     dataType:"json",
     success: function(data, textStatus, jqXHR){
-      console.log(data[1][0]);
-      console.log(data[2][0]);
-      console.log(data[3][0]);
       // below line is used to clear out search so older searches arent on top of new ones
       $('#output').html('');
    for(var i= 0;i<data[1].length;i++){
