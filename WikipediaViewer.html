@@ -24,25 +24,25 @@ button {
   padding-left: 1%;
 }
 
-a,p{
+a,p {
   font-size:20px;
   color:white;
   outline:none;
 }
-div,output{
+div,output {
   padding:10px;
   border-radius:10px;
   margin: 20px;
 }
 
-.btn-primary{
+.btn-primary {
   font-size: 20px;
 }
 </style>
 <script>
-$(document).ready(function(){
+$(document).ready(function() {
   //when search is clikced run code
-  $('#search').click(function(){
+  $('#search').click(function() {
     //Gets search input
     var searchTerm = $('#searchTerm').val();
     //  API URL with search input
@@ -52,22 +52,22 @@ $(document).ready(function(){
     url:url,
     async:false,
     dataType:"json",
-    success: function(data, textStatus, jqXHR){
+    success: function(data, textStatus, jqXHR) {
       // below line is used to clear out search so older searches arent on top of new ones
       $('#output').html('');
-   for(var i= 0;i<data[1].length;i++){
+   for(var i= 0;i<data[1].length;i++) {
       $('#output').prepend("<div><div class='btn-primary'><a href="+data[3][i]+"><h2>"+data[1][i] +"</h2><p>"+data[2][i]+"</p></a></div></div>");
    }
    smoothScroll(document.getElementById('output'));
    $('#searchTerm').val('');
   },
-    error: function(errorMessage){
+    error: function(errorMessage) {
       alert("Error!");
     }
     });
   });
-    $('#searchTerm').keypress(function(e){
-    if(e.which==13){
+    $('#searchTerm').keypress(function(e) {
+    if(e.which==13) {
       $("#search").click();
     }
   });
