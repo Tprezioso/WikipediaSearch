@@ -55,7 +55,7 @@ $(document).ready(function() {
     success: function(data, textStatus, jqXHR) {
       // below line is used to clear out search so older searches arent on top of new ones
       $('#output').html('');
-   for(var i= 0;i<data[1].length;i++) {
+   for(var i= 0; i < data[1].length; i++) {
       $('#output').prepend("<div><div class='btn-primary'><a href="+data[3][i]+"><h2>"+data[1][i] +"</h2><p>"+data[2][i]+"</p></a></div></div>");
    }
    smoothScroll(document.getElementById('output'));
